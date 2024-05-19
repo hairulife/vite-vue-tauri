@@ -1,12 +1,10 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1;
   font-weight: 400;
-
   color: #0f0f0f;
   background-color: #f6f6f6;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,53 +14,44 @@
 
 body {
   margin: 0;
-  padding: 20px;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  text-align: center;
+  padding: 30px;
 }
 
 input,
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border: 0;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
   font-family: inherit;
   color: #0f0f0f;
   background-color: #ffffff;
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 0 10px;
 }
 
 button {
   cursor: pointer;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 button.primary {
   color: #ffffff;
-  background-color: #396cd8;
-  border-color: #396cd8;
+  background-color: #1d4999;
 }
 
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
+button.primary:hover {
+  border-color: rgb(255, 255, 255) 999;
 }
 
 input,
@@ -96,17 +85,22 @@ button.full-width {
 }
 
 .form-title {
+  color: #f6f6f6;
   background-color: #1d4999;
-  line-height: 1;
   margin-bottom: 20px;
-  padding: 10px 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   font-size: 16px;
   position: relative;
+  overflow: hidden;
+  font-weight: 600;
 }
 .form-title::before {
   content: "";
   position: absolute;
-  width: 3px;
+  width: 8px;
   height: 100%;
   background-color: #739ff0;
   top: 0;
@@ -132,8 +126,5 @@ button.full-width {
   button {
     color: #ffffff;
     background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
   }
 }

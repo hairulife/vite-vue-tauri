@@ -13,16 +13,10 @@ struct CustomResponse {
     remote_port: String,
 }
 
-#[derive(serde::Serialize)]
-struct ResultResponse {
-    stdout: String,
-    stderr: String,
-}
-
 // 获取配置文件
 #[tauri::command]
 fn get_config() -> Result<CustomResponse, String> {
-    let frpc_toml = std::fs::read_to_string("./frp_0.58.0_windows_amd64/frpc.toml").unwrap();
+    let frpc_toml = std::fs::read_to_string("frpc.toml").map_err(|e| e.to_string())?;
     let mut server_addr = "";
     let mut server_port = "";
     let mut name = "";
@@ -81,15 +75,14 @@ remotePort = {}
 "#,
         server_addr, server_port, name, local_ip, local_port, remote_port
     );
-    std::fs::write("./frp_0.58.0_windows_amd64/frpc.toml", frpc_toml).unwrap();
+    std::fs::write("frpc.toml", frpc_toml).unwrap();
     format!("保存成功")
 }
 
 #[tauri::command]
 fn run_frpc() -> Result<(), String> {
     // 启动frpc
-    std::process::Command::new("./frp_0.58.0_windows_amd64/frpc.exe")
-        .current_dir("./frp_0.58.0_windows_amd64")
+    std::process::Command::new("frpc")
         .args(&["-c", "frpc.toml"])
         .creation_flags(0x08000000)
         .spawn()
@@ -102,18 +95,14 @@ fn run_frpc() -> Result<(), String> {
 }
 
 #[tauri::command]
-fn stop_frpc() -> Result<ResultResponse, String> {
+fn stop_frpc() -> Result<(), String> {
     // 停止frpc
-    let output = std::process::Command::new("taskkill")
+    std::process::Command::new("taskkill")
         .args(&["/f", "/im", "frpc.exe"])
-        .output()
-        .expect("failed to execute process");
-    let stdout = String::from_utf8_lossy(&output.stdout);
-    let stderr = String::from_utf8_lossy(&output.stderr);
-    Ok(ResultResponse {
-        stdout: stdout.to_string(),
-        stderr: stderr.to_string(),
-    })
+        .creation_flags(0x08000000)
+        .spawn()
+        .map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 fn main() {
@@ -123,7 +112,7 @@ fn main() {
             get_config,
             save_config,
             run_frpc,
-            stop_frpc
+            stop_frpc,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

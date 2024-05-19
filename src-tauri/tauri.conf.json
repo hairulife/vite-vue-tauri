@@ -1,6 +1,6 @@
 {
-  "productName": "Hairu Life",
-  "version": "0.0.1",
+  "productName": "Hairu",
+  "version": "0.0.2",
   "identifier": "com.hairu.dev",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -11,9 +11,9 @@
   "app": {
     "windows": [
       {
-        "title": "海如内网穿透",
+        "title": "海如穿透",
         "width": 550,
-        "height": 550,
+        "height": 580,
         "resizable": false,
         "fullscreen": false
       }
@@ -32,6 +32,7 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "resources": ["frp_0.58.0_windows_amd64"]
+    "externalBin": ["bin/frpc"],
+    "resources": ["frpc.toml"]
   }
 }

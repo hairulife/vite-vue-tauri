@@ -50,6 +50,8 @@ const localPort = ref("22");
 const remotePort = ref("6000");
 
 const isRunning = ref(false);
+
+// 获取配置
 invoke("get_config").then((res) => {
   serverAddr.value = res["server_addr"];
   serverPort.value = res["server_port"];
@@ -58,6 +60,8 @@ invoke("get_config").then((res) => {
   localPort.value = res["local_port"];
   remotePort.value = res["remote_port"];
 });
+
+// 保存配置
 const handleSave = () => {
   invoke("save_config", {
     serverAddr: serverAddr.value,
@@ -70,11 +74,16 @@ const handleSave = () => {
     console.log(res);
   });
 };
-const handleRun = () => {
+
+// 一键穿透
+const handleRun = async () => {
+  handleSave();
   invoke("run_frpc").then((res) => {
     isRunning.value = true;
   });
 };
+
+// 暂停穿透
 const handleStop = () => {
   invoke("stop_frpc").then((res) => {
     isRunning.value = false;
