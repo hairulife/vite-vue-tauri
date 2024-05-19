@@ -1,5 +1,5 @@
 {
-  "productName": "vite-vue-tauri",
+  "productName": "HairuLife",
   "version": "0.0.0",
   "identifier": "com.hairu.dev",
   "build": {
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "海如",
+        "title": "HairuLife",
         "width": 550,
         "height": 550,
         "resizable": false,
