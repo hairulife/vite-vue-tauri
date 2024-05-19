@@ -1,6 +1,6 @@
 {
-  "productName": "HairuLife",
-  "version": "0.0.0",
+  "productName": "Hairu Life",
+  "version": "0.0.1",
   "identifier": "com.hairu.dev",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "HairuLife",
+        "title": "海如内网穿透",
         "width": 550,
         "height": 550,
         "resizable": false,

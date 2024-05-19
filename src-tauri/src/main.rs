@@ -1,6 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::os::windows::process::CommandExt;
+
 #[derive(serde::Serialize)]
 struct CustomResponse {
     server_addr: String,
@@ -89,6 +91,7 @@ fn run_frpc() -> Result<(), String> {
     std::process::Command::new("./frp_0.58.0_windows_amd64/frpc.exe")
         .current_dir("./frp_0.58.0_windows_amd64")
         .args(&["-c", "frpc.toml"])
+        .creation_flags(0x08000000)
         .spawn()
         .map_err(|e| e.to_string())?;
 
